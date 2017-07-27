@@ -17,8 +17,16 @@ PY2 = version_info[0] == 2
 if PY2:
     execfile = execfile
 else:
-    def execfile(filename, globals, locals):
+    def execfile(filename, globals=None, locals=None):
         with open(filename) as handle:
-            exec(handle.read(), globals, locals)
+            exec(
+                compile(
+                    handle.read(),
+                    filename,
+                    'exec',
+                ),
+                globals,
+                locals
+            )
 
 #----------------------------------------------------------------------------------------------------------------------------------

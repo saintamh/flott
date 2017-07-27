@@ -27,7 +27,10 @@ class Flott(object):
 
     def _load_members_from_file(self, file_path):
         file_locals = dict(self.namespace)
-        execfile(file_path, file_locals, file_locals)
+        try:
+            execfile(file_path, file_locals, file_locals)
+        except Exception:
+            raise Exception("Failed to load '%s'" % file_path)
         for key, value in file_locals.items():
             if key not in self.namespace \
                     and isinstance(value, type) \
