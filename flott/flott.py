@@ -57,10 +57,10 @@ class Flott(object):
             for member in self._load_members_from_file(file_path, kwargs):
                 yield member
 
-    def load_member_by_id(self, member_id):
+    def load_member_by_id(self, member_id, **kwargs):
         similarity = self._string_similarity(member_id)
         all_member_ids = []
-        for member in self.all_members(sort_key=similarity):
+        for member in self.all_members(kwargs, sort_key=similarity):
             all_member_ids.append(member.id)
             if member.id == member_id:
                 return member
